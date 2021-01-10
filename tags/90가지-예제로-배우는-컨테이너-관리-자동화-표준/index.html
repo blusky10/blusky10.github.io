@@ -1,0 +1,564 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Tag: 90가지 예제로 배우는 컨테이너 관리 자동화 표준 - Polpid&#039;s Blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="Polpid"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Polpid"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta property="og:type" content="blog"><meta property="og:title" content="Polpid&#039;s Blog"><meta property="og:url" content="https://blusky10.github.io/"><meta property="og:site_name" content="Polpid&#039;s Blog"><meta property="og:locale" content="en_US"><meta property="og:image" content="https://blusky10.github.io/img/og_image.png"><meta property="article:author" content="KIM SANG HYUN"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://blusky10.github.io"},"headline":"Polpid's Blog","image":["https://blusky10.github.io/img/og_image.png"],"author":{"@type":"Person","name":"KIM SANG HYUN"},"description":""}</script><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css"><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script><!--!--><!--!--><meta name="generator" content="Hexo 5.2.0"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="Polpid&#039;s Blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item search" title="Search" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><div class="card-content"><nav class="breadcrumb" aria-label="breadcrumbs"><ul><li><a href="/tags">Tags</a></li><li class="is-active"><a href="#" aria-current="page">90가지 예제로 배우는 컨테이너 관리 자동화 표준</a></li></ul></nav></div></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item">Posted&nbsp;<time dateTime="2021-01-04T04:50:16.000Z" title="2021-01-04T04:50:16.000Z">2021-01-04</time></span><span class="level-item">Updated&nbsp;<time dateTime="2021-01-10T00:34:06.257Z" title="2021-01-10T00:34:06.257Z">2021-01-10</time></span><span class="level-item"><a class="link-muted" href="/categories/Kubernetes/">Kubernetes</a><span> / </span><a class="link-muted" href="/categories/Kubernetes/Book/">Book</a></span><span class="level-item">6 minutes read (About 956 words)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2021/01/04/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4%EC%9E%85%EB%AC%B8-13%EC%9E%A5-%EC%9D%B8%EC%A6%9D%EA%B3%BC-%EA%B6%8C%ED%95%9C/">쿠버네티스입문 13장 인증과 권한</a></h1><div class="content"><h1 id="인증과-권한"><a href="#인증과-권한" class="headerlink" title="인증과 권한"></a>인증과 권한</h1><h2 id="kubectl-config"><a href="#kubectl-config" class="headerlink" title="kubectl config"></a>kubectl config</h2><ul>
+<li><p>~/.kube/config 파일</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: v1</span><br><span class="line">clusters:</span><br><span class="line">- cluster:</span><br><span class="line">    certificate-authority-data: ~~</span><br><span class="line">    server: https:&#x2F;&#x2F;10.0.1.7:6443</span><br><span class="line">  name: kubernetes</span><br><span class="line">contexts:</span><br><span class="line">- context:</span><br><span class="line">    cluster: kubernetes</span><br><span class="line">    user: kubernetes-admin</span><br><span class="line">  name: kubernetes-admin@kubernetes</span><br><span class="line">current-context: kubernetes-admin@kubernetes</span><br><span class="line">kind: Config</span><br><span class="line">preferences: &#123;&#125;</span><br><span class="line">users:</span><br><span class="line">- name: kubernetes-admin</span><br><span class="line">  user:</span><br><span class="line">    client-certificate-data: data</span><br><span class="line">    client-key-data: key</span><br></pre></td></tr></table></figure>
+<ul>
+<li>cluster.server: 외부에서 접속할수 있는 정보</li>
+<li>clusters[].name: 클러스터 이름</li>
+<li>context.cluster: 접근할 클러스터</li>
+<li>context.user: 클러스터에 접근할 사용자 그룹</li>
+<li>contexts[].name: 컨텍스트 이름</li>
+<li>users[]: 클러스터를 사용할 사용자 그룹</li>
+<li>user.client-certificate-data: 클라이언트 인증에 필요한 해시값</li>
+<li>user.client-key-data: 클라이언트 키 해시값</li>
+</ul>
+</li>
+<li><p>token 조회 하기</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">master01@master01-VirtualBox:~$ kubectl get sa default -o yaml</span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: ServiceAccount</span><br><span class="line">metadata:</span><br><span class="line">  creationTimestamp: &quot;2020-10-12T10:21:28Z&quot;</span><br><span class="line">  name: default</span><br><span class="line">  namespace: default</span><br><span class="line">  resourceVersion: &quot;395&quot;</span><br><span class="line">  selfLink: &#x2F;api&#x2F;v1&#x2F;namespaces&#x2F;default&#x2F;serviceaccounts&#x2F;default</span><br><span class="line">  uid: 034e5b6a-0484-4aef-a78f-42a206032779</span><br><span class="line">secrets:</span><br><span class="line">- name: default-token-w5t42</span><br></pre></td></tr></table></figure>
+<ul>
+<li>default-token~이라는 secret확인 가능<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">kubectl describe secret default-token-w5t42</span><br><span class="line">Name:         default-token-w5t42</span><br><span class="line">Namespace:    default</span><br><span class="line">Labels:       &lt;none&gt;</span><br><span class="line">Annotations:  kubernetes.io&#x2F;service-account.name: default</span><br><span class="line">              kubernetes.io&#x2F;service-account.uid: 034e5b6a-0484-4aef-a78f-42a206032779</span><br><span class="line"></span><br><span class="line">Type:  kubernetes.io&#x2F;service-account-token</span><br><span class="line"></span><br><span class="line">Data</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">namespace:  7 bytes</span><br><span class="line">token:      eyJhbGciOiJSUzI1NiIsImtpZCI6ImNIV1I5a0MtZVUxUE1JY0RHY1lvRkJZZDN5M3o3TkxncWY3QUN3R0FGelkifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJkZWZhdWx0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6ImRlZmF1bHQtdG9rZW4tdzV0NDIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoiZGVmYXVsdCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6IjAzNGU1YjZhLTA0ODQtNGFlZi1hNzhmLTQyYTIwNjAzMjc3OSIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDpkZWZhdWx0OmRlZmF1bHQifQ.irtlJ4PmyJZ-5auePspxP4xd0yMF8_aAVQN3gWRBaWeCgkYlkOWgS13EfwyKQEoQai2uGtL751G0eo07-VBvR0nV6ith0knHw3Ji2nYBzt0BSVke7DpLu4T6m6uSeNIPhugZ3QAJxB73tNS2BoCXM4Hpwvz8gyrmBMzT2ce7905XP8mXJwYV1-MnwlZFngSrnG6cHAqA6u1B4DpGSjZ1viLe_HL0j4tHn4NCRTEkxnJcEiSz4pcr2Frb1K2ZXVyhWslPQeIdA5QWaJEVvUe0GQK1V1aHRhfSYHfmJlSM00iJmrwCiY-fFMxvDiT4PCjLAwj4Bdoqjt-WsL_FeNWBXQ</span><br><span class="line">ca.crt:     1066 bytes</span><br></pre></td></tr></table></figure></li>
+<li>실제 토큰을 조회해 보면 위와 같다</li>
+<li>토큰은 사용자를 추가 할때 사용될 수 있다.</li>
+</ul>
+</li>
+</ul>
+<h2 id="권한"><a href="#권한" class="headerlink" title="권한"></a>권한</h2><ul>
+<li><p>ABAC</p>
+<ul>
+<li>속성기반 권한 관리</li>
+<li>변경하려면 직접 마스터에 접속해 파일 변경후 apiserver 재시작해야한다.</li>
+</ul>
+</li>
+<li><p>RBAC</p>
+<ul>
+<li>역할 기반 권한 관리</li>
+<li>사용자와 역할을 분리해서 선언후 바인딩한다.</li>
+</ul>
+</li>
+<li><p>Role</p>
+<ul>
+<li>특정 API 나 자원 사용 권한들을 명시해둔 규칙의 집합</li>
+<li>Role과 ClusterRole 이 있다</li>
+<li>Role<ul>
+<li>해당 롤이 속한 네임스페이스에만 적용된다.</li>
+<li>설정<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">    apiVersion: rbac.authorization.k8s.io&#x2F;v1</span><br><span class="line">    kind: Role</span><br><span class="line">    metadata:</span><br><span class="line">      namespace: default</span><br><span class="line">      name: read-role</span><br><span class="line">    rules:</span><br><span class="line">    - apiGroups: [&quot;&quot;]</span><br><span class="line">      resources: [&quot;pod&quot;]</span><br><span class="line">      verbs: [&quot;get&quot;, &quot;list&quot;]</span><br><span class="line">    ~~~  </span><br><span class="line">    - apiGroups: 롤이 사용할 apiGroup 들</span><br><span class="line">    - resouces: 접근할 수 있는 자원</span><br><span class="line">    - verbs: 어떤 동작이 가능한지 (create, get, list, update, patch, delete, deletecollection)</span><br><span class="line">    - rules[].resourcesNames: 특정 이름의 리소스에만 적용 가능하게 할 수 있다. (get, delete, update, patch 만 적용가능하다. 나머지는 개별 api 를 호출하는 verbs 가 아니기 때문이다)</span><br><span class="line">- ClusterRole</span><br><span class="line">  - 설정은 Role 과 동일 하나 namespace 항목은 빠진다.</span><br><span class="line">  - .aggregationRule 설정을 통해 다른 클러스터롤과 조합 가능</span><br></pre></td></tr></table></figure>
+aggregationRule:<br>  clusterRuleSelectors:<ul>
+<li>matchLabels:<br>  kubernetes.io/bootstrapping: rbac-defaults<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">      - rulese 를 설정 하지 않아도 다른 클러스터 롤에서 불러와서 적용한다.</span><br><span class="line">    - 자원 뿐만 아니라 url 형태의 규칙도 추가 가능하며 verbs 는 get, post 만 사용 가능하다.</span><br><span class="line">- RoleBinding</span><br><span class="line">  - 롤과 사용자를 연결한다. RoleBinding, ClusterRoleBinding 이 있다.</span><br><span class="line">  - RoleBinding</span><br><span class="line">    - 설정</span><br></pre></td></tr></table></figure>
+apiVersion: v1<br>kind: ServiceAccount<br>metadata:<br>name: myuser<br>namespace: default</li>
+</ul>
+<hr>
+apiVersion: rbac.authorization/k8s.io/v1<br>kind: RoleBinding<br>metadata:<br>  name: read-rolebinding<br>  namespace: default<br>subjects:<ul>
+<li>kind: ServiceAccount<br>name: myuser<br>apiGroup: “”<br>roleRef:<br>kind: Role<br>name: read-role<br>apiGroup: rbac.authorization.k8s.io<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">    - subjects[].apiGroup: &quot;&quot; 은 핵심  apiGroup으로 설정했다는 의미</span><br><span class="line">    - roleRef 는 어떤 롤을 할당할 건지 설정</span><br><span class="line">    - 롤바인딩에 설정한 네임스페이스에 한해서 가능</span><br><span class="line">- ClusterRoleBinding</span><br><span class="line">  - 설정</span><br></pre></td></tr></table></figure>
+apiVersion: rbac.authorization/k8s.io/v1<br>kind: ClusterRoleBinding<br>metadata:<br>name: read-clusterrolebinding<br>subjects:</li>
+<li>kind: ServiceAccount<br>name: myuser<br>namespace: default<br>apiGroup: “”<br>roleRef:<br>kind: ClusterRole<br>name: read-clusterrole<br>apiGroup: rbac.authorization.k8s.io<br><del>~</del></li>
+<li>롤바인딩과 차이점은 .subjects[].kind: ServiceAccount, User, Group 을 설정가능. ServiceAccount, User 설정시에는 네임스페이스 필요함      </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<blockquote>
+<p>출처 : 쿠버네티스 입문 - 90가지 예제로 배우는 컨테이너 관리자 자동화 표준 (동양북스)</p>
+</blockquote>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item">Posted&nbsp;<time dateTime="2020-12-31T00:36:56.000Z" title="2020-12-31T00:36:56.000Z">2020-12-31</time></span><span class="level-item">Updated&nbsp;<time dateTime="2021-01-10T00:34:06.256Z" title="2021-01-10T00:34:06.256Z">2021-01-10</time></span><span class="level-item"><a class="link-muted" href="/categories/Kubernetes/">Kubernetes</a><span> / </span><a class="link-muted" href="/categories/Kubernetes/Book/">Book</a></span><span class="level-item">5 minutes read (About 711 words)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/12/31/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4%EC%9E%85%EB%AC%B8-12%EC%9E%A5-%ED%8C%8C%EB%93%9C%EC%8A%A4%EC%BC%80%EC%A4%84%EB%A7%81/">쿠버네티스입문 12장 파드스케줄링</a></h1><div class="content"><h1 id="파드-스케줄링"><a href="#파드-스케줄링" class="headerlink" title="파드 스케줄링"></a>파드 스케줄링</h1><p>파드를 만들때 어떤 노드에서 실행할지 다양한 옵션으로 선택할 수 있다.</p>
+<h2 id="NodeSelector-노드-셀렉터"><a href="#NodeSelector-노드-셀렉터" class="headerlink" title="NodeSelector(노드 셀렉터)"></a>NodeSelector(노드 셀렉터)</h2><ul>
+<li>설정<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">spec:</span><br><span class="line">  containers:</span><br><span class="line">  nodeSelector:</span><br><span class="line">    key: value</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="Node-Affinity"><a href="#Node-Affinity" class="headerlink" title="Node Affinity"></a>Node Affinity</h2><ul>
+<li>노드 레이블을 기반으로 파드를 스케줄링 한다.</li>
+<li>노드 셀렉터를 함께 설정할 경우 둘다 만족하는 노드에 스케줄링된다.</li>
+<li>requiredDuringSchedulingIgnoredDuringExecution : 스케줄링 하는동안 꼭 필요한 조건</li>
+<li>preferredDuringSchedulingIgnoredDuringExecution : 만족하면 좋은 조건. (필수아님)</li>
+<li>스케줄링 하는 동안 조건이 변경되더라도 무시한다.</li>
+<li>설정<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">spec:</span><br><span class="line">  affinity:</span><br><span class="line">    nodeAffinity:</span><br><span class="line">      requiredDuringSchedulingIgnoredDuringExecution:</span><br><span class="line">        nodeSelectorTerms:</span><br><span class="line">        - matchExpressions:</span><br><span class="line">          - key: beta.kubernetes.io&#x2F;os</span><br><span class="line">            operator: In</span><br><span class="line">            values:</span><br><span class="line">            - linux</span><br><span class="line">            - window</span><br><span class="line">          - key: disktype</span><br><span class="line">            operator: Exists</span><br><span class="line">      preferredDuringSchedulingIgnoredDuringExecution  </span><br><span class="line">      - weight: 10</span><br><span class="line">        preference:</span><br><span class="line">          matchExpressions:</span><br><span class="line">          - key: kubernetes.io&#x2F;hostname</span><br><span class="line">            operator: In</span><br><span class="line">            values:</span><br><span class="line">            - worker-node01</span><br></pre></td></tr></table></figure>
+<ul>
+<li>operators : In, NotIn, Exists, DoesNotExist, Gt(Greater than), Lt(Lower than)</li>
+</ul>
+</li>
+</ul>
+<h2 id="Pod-affinity-antiAffinity"><a href="#Pod-affinity-antiAffinity" class="headerlink" title="Pod affinity, antiAffinity"></a>Pod affinity, antiAffinity</h2><ul>
+<li>affinity: 서로 연관성이 있는 Pod 를 같은 노드에 배치</li>
+<li>antiAffinity: 자원을 많이 차지 하는 Pod 를 서로 다른 노드에 배치</li>
+<li>설정<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">spec:</span><br><span class="line">    affinity:</span><br><span class="line">      podAntiAffinity:</span><br><span class="line">        requiredDuringSchedulingIgnoredDuringExecution:</span><br><span class="line">        - labelSelector:</span><br><span class="line">            matchExpressions:</span><br><span class="line">            - key: app</span><br><span class="line">              operator: In</span><br><span class="line">              values:</span><br><span class="line">              - store</span><br><span class="line">          topologyKey: &quot;kubernetes.io&#x2F;hostname&quot;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>app 필드 값이 store 인 노드는 피해서 스케줄링 한다.</li>
+<li>topologyKey : affinity 를 만족하면 topologyKey 기준으로 같은 노드에 pod 를 실행하고 anitiAffinity를 만족하면 topologyKey 기준으로 다른 노드에 pod 를 실행한다.</li>
+</ul>
+</li>
+</ul>
+<h2 id="taint-toleration"><a href="#taint-toleration" class="headerlink" title="taint, toleration"></a>taint, toleration</h2><ul>
+<li>테인트를 설정한 노드는 스케줄링 하지 않는다.</li>
+<li>테인트를 설정한 노드에 스케줄링 하려면 톨러레이션을 설정해야 한다.</li>
+<li>kubectl taint nodes 노드명 key01=value01:NoSchedule (key=value:효과)</li>
+<li>kubectl taint nodes 노드명 key01=value01:NoSchedule- (테인트 제거)</li>
+<li>톨러레이션<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">spec:</span><br><span class="line">  tolerations:</span><br><span class="line">  - key: &quot;key01&quot;</span><br><span class="line">    operator: &quot;Equal&quot;</span><br><span class="line">    value: &quot;value01&quot;</span><br><span class="line">    effect: &quot;NoSchedule&quot;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>effect<ul>
+<li>NoSchedule : 톨러레이션 설정 없으면 스케줄링 안함.</li>
+<li>PreferNoSchedule : 스케줄링 안하지만 자원 부족하면 할수도 있음</li>
+<li>NoExecute : 스케줄링 안하며 기존 파드도 설정이 없는경우 종료시킴</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="cordon-drain"><a href="#cordon-drain" class="headerlink" title="cordon, drain"></a>cordon, drain</h2><ul>
+<li>cordon<ul>
+<li>지정한 노드에 추가로 파드를 스케줄링 하지 않는다.</li>
+<li>kubectl cordon 노드명<pre><code>master01@master01-VirtualBox:~$ kubectl get nodes
+NAME                  STATUS     ROLES    AGE   VERSION
+master01-virtualbox   Ready      master   79d   v1.19.2
+worker01-virtualbox   Ready      &lt;none&gt;   79d   v1.19.2
+worker02-virtualbox   NotReady   &lt;none&gt;   79d   v1.19.2
+master01@master01-VirtualBox:~$ kubectl cordon worker01-virtualbox
+node/worker01-virtualbox cordoned
+master01@master01-VirtualBox:~$ kubectl get nodes
+NAME                  STATUS                     ROLES    AGE   VERSION
+master01-virtualbox   Ready                      master   79d   v1.19.2
+worker01-virtualbox   Ready,SchedulingDisabled   &lt;none&gt;   79d   v1.19.2
+worker02-virtualbox   NotReady                   &lt;none&gt;   79d   v1.19.2
+master01@master01-VirtualBox:~$ kubectl uncordon worker01-virtualbox
+node/worker01-virtualbox uncordoned
+master01@master01-VirtualBox:~$ kubectl get nodes
+NAME                  STATUS     ROLES    AGE   VERSION
+master01-virtualbox   Ready      master   79d   v1.19.2
+worker01-virtualbox   Ready      &lt;none&gt;   79d   v1.19.2
+worker02-virtualbox   NotReady   &lt;none&gt;   79d   v1.19.2</code></pre>
+</li>
+</ul>
+</li>
+<li>drain<ul>
+<li>지정된 노드에 있는 파드를 다른 노드로 옮긴다.</li>
+<li>노드에 데몬셋이 존재할 경우 적용 불가능</li>
+<li>데몬셋 무시하고 적용할 경우 –ignore-daemonsets=true 옵션 추가</li>
+<li>컨트롤러를 이용하지 않은 파드들도 drain 불가능</li>
+</ul>
+</li>
+</ul>
+<hr>
+<blockquote>
+<p>출처 : 쿠버네티스 입문 - 90가지 예제로 배우는 컨테이너 관리자 자동화 표준 (동양북스)</p>
+</blockquote>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item">Posted&nbsp;<time dateTime="2020-12-30T06:50:27.000Z" title="2020-12-30T06:50:27.000Z">2020-12-30</time></span><span class="level-item">Updated&nbsp;<time dateTime="2021-01-10T00:34:06.256Z" title="2021-01-10T00:34:06.256Z">2021-01-10</time></span><span class="level-item"><a class="link-muted" href="/categories/Kubernetes/">Kubernetes</a><span> / </span><a class="link-muted" href="/categories/Kubernetes/Book/">Book</a></span><span class="level-item">2 minutes read (About 321 words)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/12/30/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4%EC%9E%85%EB%AC%B8-11%EC%9E%A5-%EC%8B%9C%ED%81%AC%EB%A6%BF/">쿠버네티스입문 11장 시크릿</a></h1><div class="content"><h1 id="Secret"><a href="#Secret" class="headerlink" title="Secret"></a>Secret</h1><ul>
+<li>비밀번호 같은 민감한 정보를 저장하는 용도로 사용</li>
+</ul>
+<h2 id="생성"><a href="#생성" class="headerlink" title="생성"></a>생성</h2><ul>
+<li>명령어<ul>
+<li>kubectl create generic secret명 –from-file~</li>
+<li>실제 값은 base64 로 인코딩한 값이 들어간다.</li>
+</ul>
+</li>
+<li>템플릿<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: v1</span><br><span class="line">kind: Secret</span><br><span class="line">metadata:</span><br><span class="line">  name: user-pass-yaml</span><br><span class="line">type: Opaque</span><br><span class="line">data:</span><br><span class="line">  username: 값</span><br><span class="line">  password: 값</span><br></pre></td></tr></table></figure>
+<ul>
+<li>type <ul>
+<li>Opaque : 기본값</li>
+<li>kubernetes.io/service-account-token : 쿠버네티스 인증토큰 저장</li>
+<li>kubernetes.io/dockerconfigjson: 도커 저장소 인증정보 저장</li>
+<li>kubernetes.io/tls: TLS 인증서 저장</li>
+</ul>
+</li>
+<li>data 값은 base64 로 인코딩 한 값을 넣어야 한다.<ul>
+<li>echo -n “username” | base64</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="사용"><a href="#사용" class="headerlink" title="사용"></a>사용</h2><ul>
+<li>환경변수로 사용<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">spec:</span><br><span class="line">  containers:</span><br><span class="line">  - name:</span><br><span class="line">    image:</span><br><span class="line">    env:</span><br><span class="line">    - name: SECRET_USERNAME</span><br><span class="line">      valueFrom:</span><br><span class="line">        secretKeyRef:</span><br><span class="line">          name: user-pass-yaml</span><br><span class="line">          key: username</span><br></pre></td></tr></table></figure></li>
+<li>volume 에 바인딩 하기<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">spec:</span><br><span class="line">  containers:</span><br><span class="line">  - name:</span><br><span class="line">    image:</span><br><span class="line">    volumeMounts:</span><br><span class="line">    - name: volume-secret</span><br><span class="line">      mountPath: &#x2F;etc&#x2F;config</span><br><span class="line">      readOnly: true</span><br><span class="line">  volumes:</span><br><span class="line">  - name: config-secret</span><br><span class="line">    secret:</span><br><span class="line">      secretName: user-pass-yaml </span><br></pre></td></tr></table></figure></li>
+<li>프라이빗 커네이너 이미지 pull<ul>
+<li>kubectl create secret docker-registry dockersecret –docker-username= –docker-password= –docker-email= –docker-service=https://~</li>
+<li>설정<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">spec:</span><br><span class="line">containers:</span><br><span class="line">- name:</span><br><span class="line">  image:</span><br><span class="line">imagePullSecrets:</span><br><span class="line">- name: dockersecret      </span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>TLS 사용<ul>
+<li>kubectl create secret tls tlssecret –key tls.key –cert tls.crt</li>
+</ul>
+</li>
+</ul>
+<h2 id="제한"><a href="#제한" class="headerlink" title="제한"></a>제한</h2><ul>
+<li>secret 은 etcd 에 저장된다.</li>
+<li>secret의 최대 용량은 1MB</li>
+<li>작은 용량의 secret 을 여러개 만들어도 문제가 생길수 있다.</li>
+<li>etcd 는 접근 제한을 해야 한다.</li>
+</ul>
+<hr>
+<blockquote>
+<p>출처 : 쿠버네티스 입문 - 90가지 예제로 배우는 컨테이너 관리자 자동화 표준 (동양북스)</p>
+</blockquote>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item">Posted&nbsp;<time dateTime="2020-12-30T04:35:46.000Z" title="2020-12-30T04:35:46.000Z">2020-12-30</time></span><span class="level-item">Updated&nbsp;<time dateTime="2020-12-30T13:13:19.748Z" title="2020-12-30T13:13:19.748Z">2020-12-30</time></span><span class="level-item"><a class="link-muted" href="/categories/Kubernetes/">Kubernetes</a><span> / </span><a class="link-muted" href="/categories/Kubernetes/Book/">Book</a></span><span class="level-item">a minute read (About 208 words)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/12/30/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4%EC%9E%85%EB%AC%B8-10%EC%9E%A5-%EC%BB%A8%ED%94%BC%EA%B7%B8%EB%A7%B5/">쿠버네티스입문 10장 컨피그맵</a></h1><div class="content"><h1 id="ConfigMap"><a href="#ConfigMap" class="headerlink" title="ConfigMap"></a>ConfigMap</h1><ul>
+<li>컨테이너에 필요한 환경 설정을 컨테이너와 분리해서 제공하는 기능</li>
+</ul>
+<h2 id="사용"><a href="#사용" class="headerlink" title="사용"></a>사용</h2><ul>
+<li>설정<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: v1</span><br><span class="line">kind: ConfigMap</span><br><span class="line">metadata:</span><br><span class="line">  name: config-dev</span><br><span class="line">data:</span><br><span class="line">  DB_URL: localhost</span><br><span class="line">  DB_USER: myuser</span><br><span class="line">  DB_PASS: mypass</span><br><span class="line">  DEBUG_INFO: debug  </span><br></pre></td></tr></table></figure></li>
+<li>컨피그맵 일부만 사용<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">spec:</span><br><span class="line">  containers:</span><br><span class="line">  - name:</span><br><span class="line">    image:</span><br><span class="line">    env:</span><br><span class="line">    - name: DEBUG_LEVEL</span><br><span class="line">      valueFrom:</span><br><span class="line">        configMapKeyRef:</span><br><span class="line">          name: config-dev</span><br><span class="line">          key : DEBUG_INFO</span><br></pre></td></tr></table></figure>
+<ul>
+<li>.env[].valueFrom 사용</li>
+<li>.env[].valueFrom.configMapKeyRef 를 통해 이미 정의된 configmap 사용</li>
+</ul>
+</li>
+<li>컨피그맵 전체를 불러오기<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">spec:</span><br><span class="line">  containers:</span><br><span class="line">  - name:</span><br><span class="line">    image:      </span><br><span class="line">    envFrom:</span><br><span class="line">    - configMapRef:</span><br><span class="line">      name: config-dev      </span><br></pre></td></tr></table></figure></li>
+<li>volume 에 바인딩 하기<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">spec:</span><br><span class="line">  containers:</span><br><span class="line">  - name:</span><br><span class="line">    image:</span><br><span class="line">    volumeMounts:</span><br><span class="line">    - name: config-volume</span><br><span class="line">      mountPath: &#x2F;etc&#x2F;config</span><br><span class="line">  volumes:</span><br><span class="line">  - name: config-volume</span><br><span class="line">    configMap:</span><br><span class="line">      name: config-dev    </span><br></pre></td></tr></table></figure>
+<ul>
+<li>컨테이너 내부에 파일로 저장한다.<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@nginx-deployment-67b8444cdf-sp7lx:&#x2F;# ls &#x2F;etc&#x2F;config&#x2F;</span><br><span class="line">DB_PASS  DB_URL  DB_USER  DEBUG_INFO</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<blockquote>
+<p>출처 : 쿠버네티스 입문 - 90가지 예제로 배우는 컨테이너 관리자 자동화 표준 (동양북스)</p>
+</blockquote>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item">Posted&nbsp;<time dateTime="2020-12-29T23:36:53.000Z" title="2020-12-29T23:36:53.000Z">2020-12-30</time></span><span class="level-item">Updated&nbsp;<time dateTime="2020-12-30T13:13:19.749Z" title="2020-12-30T13:13:19.749Z">2020-12-30</time></span><span class="level-item"><a class="link-muted" href="/categories/Kubernetes/">Kubernetes</a><span> / </span><a class="link-muted" href="/categories/Kubernetes/Book/">Book</a></span><span class="level-item">2 minutes read (About 235 words)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/12/30/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4%EC%9E%85%EB%AC%B8-9%EC%9E%A5-%EB%A0%88%EC%9D%B4%EB%B8%94%EA%B3%BC-%EC%95%A0%EB%84%88%ED%85%8C%EC%9D%B4%EC%85%98/">쿠버네티스입문 9장 레이블과 애너테이션</a></h1><div class="content"><h1 id="Label-Annotation"><a href="#Label-Annotation" class="headerlink" title="Label, Annotation"></a>Label, Annotation</h1><h2 id="Label-레이블"><a href="#Label-레이블" class="headerlink" title="Label(레이블)"></a>Label(레이블)</h2><ul>
+<li>키-값 쌍으로 구성</li>
+<li>파드 관리할때 구분하는 역할을 한다.</li>
+<li>규칙<ul>
+<li>63글자 넘으면 안됨</li>
+<li>시작과 끝문자는 알파벳 대소문자 및 숫자</li>
+<li>중간에는 대시(-), 밑줄(_), 점(.), 숫자등이 올수 있음</li>
+</ul>
+</li>
+<li>레이블 셀렉터<ul>
+<li>등호기반(=, ==)</li>
+<li>집합기반(in, notin..)</li>
+<li>레이블을 모두 만족시켜야 하는경우 (And) 는 쉼표로 연결</li>
+<li>실제 서비스에서 정상적으로 셀렉트를 했는지 보려면 서비스의 endpoint를 확인해보면 된다.</li>
+</ul>
+</li>
+<li>pod 선택시 -l 옵션 사용<ul>
+<li>kubectl get pod -l 레이블<del>~</del>  </li>
+</ul>
+</li>
+</ul>
+<h2 id="Annotation"><a href="#Annotation" class="headerlink" title="Annotation"></a>Annotation</h2><ul>
+<li>쿠버네티스 시스템이 필요한 정보를 담는다.</li>
+<li>키는 쿠버네티스 시스템이 인식할 수 있는 값을 사용한다.</li>
+</ul>
+<hr>
+<blockquote>
+<p>출처 : 쿠버네티스 입문 - 90가지 예제로 배우는 컨테이너 관리자 자동화 표준 (동양북스)</p>
+</blockquote>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item">Posted&nbsp;<time dateTime="2020-12-28T09:49:20.000Z" title="2020-12-28T09:49:20.000Z">2020-12-28</time></span><span class="level-item">Updated&nbsp;<time dateTime="2021-01-10T00:34:06.255Z" title="2021-01-10T00:34:06.255Z">2021-01-10</time></span><span class="level-item"><a class="link-muted" href="/categories/Kubernetes/">Kubernetes</a><span> / </span><a class="link-muted" href="/categories/Kubernetes/Book/">Book</a></span><span class="level-item">3 minutes read (About 513 words)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/12/28/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4%EC%9E%85%EB%AC%B8-8%EC%9E%A5-%EC%9D%B8%EA%B7%B8%EB%A0%88%EC%8A%A4/">쿠버네티스입문 8장 인그레스</a></h1><div class="content"><h1 id="Ingress"><a href="#Ingress" class="headerlink" title="Ingress"></a>Ingress</h1><h2 id="개념"><a href="#개념" class="headerlink" title="개념"></a>개념</h2><ul>
+<li>클러스터 외부에서 안으로 접근하는 요청들을 어떻게 처리할지 정의해둔 규칙</li>
+<li>인그레스는 규칙들의 모음이며 실제로는 인그레스 컨트롤러가 동작시킨다.</li>
+</ul>
+<h2 id="설정"><a href="#설정" class="headerlink" title="설정"></a>설정</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: networking.k8s.io&#x2F;v1</span><br><span class="line">kind: Ingress</span><br><span class="line">metadata:</span><br><span class="line">  name: test</span><br><span class="line">  annotations:</span><br><span class="line">    nginx.ingress.kubernetes.io&#x2F;rewrite-target: &#x2F;</span><br><span class="line">spec:</span><br><span class="line">  rules:</span><br><span class="line">  - host: foo.bar.com</span><br><span class="line">    http:</span><br><span class="line">      paths:</span><br><span class="line">      - path: &#x2F;foos1</span><br><span class="line">        pathType: Prefix</span><br><span class="line">        backend:</span><br><span class="line">          service:</span><br><span class="line">            name: s1</span><br><span class="line">            port:</span><br><span class="line">              number: 80</span><br><span class="line">      - path: &#x2F;bars2</span><br><span class="line">        pathType: Prefix</span><br><span class="line">        backend:</span><br><span class="line">          service:</span><br><span class="line">            name: s2</span><br><span class="line">            port:</span><br><span class="line">              number: 80</span><br><span class="line">  - host: bar.foo.com      </span><br><span class="line">    http:</span><br><span class="line">      paths:</span><br><span class="line">      - path: &#x2F;</span><br><span class="line">        pathType: Prefix</span><br><span class="line">        backend:      </span><br><span class="line">          service:</span><br><span class="line">            name: s2</span><br><span class="line">            port:</span><br><span class="line">              number: 80  </span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>annotation 은 인그레스 컨트롤러마다 다르다. (<a target="_blank" rel="noopener" href="https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/">https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/</a>)</p>
+<h2 id="ingress-version-차이"><a href="#ingress-version-차이" class="headerlink" title="ingress version 차이"></a>ingress version 차이</h2></li>
+<li><p>1.18</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: networking.k8s.io&#x2F;v1beta1</span><br><span class="line">kind: Ingress</span><br><span class="line">metadata:</span><br><span class="line">  name: test-ingress</span><br><span class="line">  annotations:</span><br><span class="line">    nginx.ingress.kubernetes.io&#x2F;rewrite-target: &#x2F;</span><br><span class="line">spec:</span><br><span class="line">  rules:</span><br><span class="line">  - http:</span><br><span class="line">      paths:</span><br><span class="line">      - path: &#x2F;testpath</span><br><span class="line">        pathType: Prefix</span><br><span class="line">        backend:</span><br><span class="line">          serviceName: test</span><br><span class="line">          servicePort: 80</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>1.19</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: networking.k8s.io&#x2F;v1</span><br><span class="line">kind: Ingress</span><br><span class="line">metadata:</span><br><span class="line">  name: minimal-ingress</span><br><span class="line">  annotations:</span><br><span class="line">    nginx.ingress.kubernetes.io&#x2F;rewrite-target: &#x2F;</span><br><span class="line">spec:</span><br><span class="line">  rules:</span><br><span class="line">  - http:</span><br><span class="line">      paths:</span><br><span class="line">      - path: &#x2F;testpath</span><br><span class="line">        pathType: Prefix</span><br><span class="line">        backend:</span><br><span class="line">          service:</span><br><span class="line">            name: test</span><br><span class="line">            port:</span><br><span class="line">              number: 80</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="SSL-설정"><a href="#SSL-설정" class="headerlink" title="SSL 설정"></a>SSL 설정</h2><ul>
+<li>tls 생성<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout tls.key -out tls.crt -subj &quot;&#x2F;CN&#x3D;kube-book.com&quot;</span><br><span class="line">Can&#39;t load &#x2F;root&#x2F;.rnd into RNG</span><br><span class="line">140377540018624:error:2406F079:random number generator:RAND_load_file:Cannot open file:..&#x2F;crypto&#x2F;rand&#x2F;randfile.c:88:Filename&#x3D;&#x2F;root&#x2F;.rnd</span><br><span class="line">Generating a RSA private key</span><br><span class="line">........................+++++</span><br><span class="line">........+++++</span><br><span class="line">writing new private key to &#39;tls.key&#39;  </span><br></pre></td></tr></table></figure></li>
+<li>tls secret 생성<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">  kubectl create secret tls kube-book-secret --key tls.key --cert tls.crt  </span><br><span class="line">  ~~~  </span><br><span class="line">- .spec.tls 설정</span><br></pre></td></tr></table></figure>
+spec:<br>tls:<ul>
+<li>hosts:<ul>
+<li>kube-boo.com<br>secretName: kube-book-secret<pre><code></code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="무중단-배포시-주의-할점"><a href="#무중단-배포시-주의-할점" class="headerlink" title="무중단 배포시 주의 할점"></a>무중단 배포시 주의 할점</h2><ul>
+<li>maxSurge 와 maxUnavailable 설정<ul>
+<li>maxSurge : 디플로이먼트에 기본 pod 개수에 여분의 파드를 몇개 추가 할수 있는지 설정</li>
+<li>maxUnavailable : 디플로이먼트 업데이트시 사용할수 없는 파드 개수</li>
+</ul>
+</li>
+<li>readinessProbe 확인<ul>
+<li>실제 서비스 요청 처리할 준비가 되었는지 진단</li>
+<li>설정 불가능할 경우 .spec.minReadySeconds 설정. 해당 설정 기간동은 트래픽을 받지 않지만 그 이후에는 받는다.</li>
+</ul>
+</li>
+<li>graceful 종료<ul>
+<li>기존 받은 요청만 처리하고 새 요청은 받지 않는다</li>
+<li>설정 불가능 할 경우 hock 을 설정한다. </li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>출처 : 쿠버네티스 입문 - 90가지 예제로 배우는 컨테이너 관리자 자동화 표준 (동양북스)</p>
+</blockquote>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item">Posted&nbsp;<time dateTime="2020-12-28T02:02:04.000Z" title="2020-12-28T02:02:04.000Z">2020-12-28</time></span><span class="level-item">Updated&nbsp;<time dateTime="2020-12-30T13:13:19.747Z" title="2020-12-30T13:13:19.747Z">2020-12-30</time></span><span class="level-item"><a class="link-muted" href="/categories/Kubernetes/">Kubernetes</a><span> / </span><a class="link-muted" href="/categories/Kubernetes/Book/">Book</a></span><span class="level-item">2 minutes read (About 295 words)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/12/28/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4%EC%9E%85%EB%AC%B8-7%EC%9E%A5-%EC%84%9C%EB%B9%84%EC%8A%A4/">쿠버네티스입문-7장-서비스</a></h1><div class="content"><h1 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h1><h2 id="개념"><a href="#개념" class="headerlink" title="개념"></a>개념</h2><ul>
+<li>동적으로 변하는 Pod 들을 고정적으로 접근할 때 사용한다.</li>
+<li>서비스는 주로 L4영역에서 통신할 때 사용한다.</li>
+</ul>
+<h2 id="서비스-타입"><a href="#서비스-타입" class="headerlink" title="서비스 타입"></a>서비스 타입</h2><ul>
+<li>ClusterIP <ul>
+<li>default, 클러스터 내부에서만 사용가능</li>
+</ul>
+</li>
+<li>NodePort 모<ul>
+<li>모든 노드에 지정된 포트를 할당함. </li>
+<li>외부에서 접근 가능</li>
+</ul>
+</li>
+<li>LoadBalancer<ul>
+<li>EXTERNAL-IP 생성</li>
+<li>외부에서 Pod 접근 가능 할수 있게 해줌</li>
+</ul>
+</li>
+<li>ExternalName<ul>
+<li>서비스를 .spec.externalName 필드에 설정한 값과 연결한다.</li>
+<li>클러스터 안에서 외부에 접근할 때 주로 사용한다.</li>
+</ul>
+</li>
+</ul>
+<h2 id="서비스-사용"><a href="#서비스-사용" class="headerlink" title="서비스 사용"></a>서비스 사용</h2><ul>
+<li>설정<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: v1</span><br><span class="line">kind: Service</span><br><span class="line">metadata:</span><br><span class="line">  name: my-service</span><br><span class="line">spec:</span><br><span class="line">  type: ClusterIP</span><br><span class="line">  selector:</span><br><span class="line">    app: MyApp</span><br><span class="line">  ports:</span><br><span class="line">  - protocol: TCP</span><br><span class="line">    port: 80</span><br><span class="line">    targetPort: 8080</span><br></pre></td></tr></table></figure>
+<ul>
+<li>.spec.clusterIP 값을 None 로 설정하면 IP 가 없는 서비스 생성 가능</li>
+</ul>
+</li>
+</ul>
+<h2 id="kube-proxy"><a href="#kube-proxy" class="headerlink" title="kube-proxy"></a>kube-proxy</h2><ul>
+<li>userspace 모드   <ul>
+<li>Pod 연결 요청시 실패할 경우 다른 Pod에 연결을 재시도함.</li>
+</ul>
+</li>
+<li>iptables 모드 <ul>
+<li>클라이언트 요청을 iptables 를 거쳐 Pod 로 직접 전달</li>
+<li>Pod 연결 요청시 실패할 경우 재시도 안함</li>
+</ul>
+</li>
+<li>IPVS 모드</li>
+</ul>
+<hr>
+<blockquote>
+<p>출처 : 쿠버네티스 입문 - 90가지 예제로 배우는 컨테이너 관리자 자동화 표준 (동양북스)</p>
+</blockquote>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item">Posted&nbsp;<time dateTime="2020-12-23T01:59:27.000Z" title="2020-12-23T01:59:27.000Z">2020-12-23</time></span><span class="level-item">Updated&nbsp;<time dateTime="2020-12-30T13:13:19.747Z" title="2020-12-30T13:13:19.747Z">2020-12-30</time></span><span class="level-item"><a class="link-muted" href="/categories/Kubernetes/">Kubernetes</a><span> / </span><a class="link-muted" href="/categories/Kubernetes/Book/">Book</a></span><span class="level-item">6 minutes read (About 918 words)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/12/23/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4%EC%9E%85%EB%AC%B8-6%EC%9E%A5-%EC%BB%A8%ED%8A%B8%EB%A1%A4%EB%9F%AC/">쿠버네티스입문 6장 컨트롤러</a></h1><div class="content"><h1 id="Controller"><a href="#Controller" class="headerlink" title="Controller"></a>Controller</h1><h2 id="개념"><a href="#개념" class="headerlink" title="개념"></a>개념</h2><p>Pod 를 관리하는 역학을 한다.</p>
+<h2 id="Replicatoin-Controller-레플리케이션-컨트롤러-ReplicaSet-레플리카-셋"><a href="#Replicatoin-Controller-레플리케이션-컨트롤러-ReplicaSet-레플리카-셋" class="headerlink" title="Replicatoin Controller(레플리케이션 컨트롤러), ReplicaSet(레플리카 셋)"></a>Replicatoin Controller(레플리케이션 컨트롤러), ReplicaSet(레플리카 셋)</h2><h3 id="Replication-Contller"><a href="#Replication-Contller" class="headerlink" title="Replication Contller"></a>Replication Contller</h3><ul>
+<li>초기부터 있었던 기본적인 컨트롤러</li>
+<li>명시한 Pod 개수만큼 유지하도록 해준다.</li>
+<li>현재는 ReplcaSet 을 쓴다.</li>
+</ul>
+<h3 id="ReplicaSet"><a href="#ReplicaSet" class="headerlink" title="ReplicaSet"></a>ReplicaSet</h3><ul>
+<li>레플리케이션 컨트롤러의 발전형. </li>
+<li>레플리케이션 컬트롤러와 차이점은 집합기반 셀렉터를 지원 한다. (in, notin, exists)</li>
+<li>rolling-update 옵션 사용불가</li>
+<li>설정<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: v1</span><br><span class="line">kind: ReplicaSet</span><br><span class="line">metadata:</span><br><span class="line">  name: nginx-replicaset</span><br><span class="line">spec:</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      name: nginx-replicaset</span><br><span class="line">      labels:</span><br><span class="line">        app: nginx-replicaset</span><br><span class="line">    spec:</span><br><span class="line">      containers:</span><br><span class="line">      - name: nginx-replicaset</span><br><span class="line">        image: nginx</span><br><span class="line">        ports:</span><br><span class="line">        - containePort: 80</span><br><span class="line">  replicas: 3</span><br><span class="line">  selector: </span><br><span class="line">    matchLabels: </span><br><span class="line">      app: nginx-replicase</span><br></pre></td></tr></table></figure>
+<ul>
+<li>.spec.template.metadata.labels 의 설정과 spec.selector.matchLabels의 설정이 같아야 한다. </li>
+<li>selector 설정이 없을 경우 .spec.template.metadata.labels 를 따라간다.</li>
+</ul>
+</li>
+<li>레플리카셋 삭제시 –cascade=false 옵션을 하면 레플리카셋만 삭제 가능하다. (Pod 삭제안됨)</li>
+</ul>
+<h2 id="Deployment-디플로이먼트"><a href="#Deployment-디플로이먼트" class="headerlink" title="Deployment(디플로이먼트)"></a>Deployment(디플로이먼트)</h2><ul>
+<li><p>Stateless 앱 배포시 사용하는 기본적인 컨트롤러</p>
+</li>
+<li><p>레플리카셋을 관리한다.</p>
+</li>
+<li><p>설정</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: apps&#x2F;v1</span><br><span class="line">kind: Deployment</span><br><span class="line">metadata:</span><br><span class="line">  name: nginx-deployment</span><br><span class="line">  labels:</span><br><span class="line">    app: nginx-deployment</span><br><span class="line">spec:</span><br><span class="line">  replicas: 3</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: nginx-deployment</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      name: nginx-deployment</span><br><span class="line">      labels:</span><br><span class="line">        app: nginx-deployment</span><br><span class="line">    spec:</span><br><span class="line">      containers:</span><br><span class="line">      - name: nginx-deployment</span><br><span class="line">        image: nginx</span><br><span class="line">        ports:</span><br><span class="line">        - containerPort: 80</span><br></pre></td></tr></table></figure></li>
+<li><p>생성시 Deployemnt, ReplicaSet, Pod 가 생성된다.</p>
+</li>
+<li><p>설정정보 Update 방법</p>
+<ul>
+<li>kubectl set</li>
+<li>kubectl edit</li>
+<li>yaml 파일 수정후 apply</li>
+</ul>
+</li>
+<li><p>revsion</p>
+<ul>
+<li>kubectl rollout history deployment 이름</li>
+<li>kubectl rollout undo deploy (이전 revision 으로 롤백)</li>
+<li>kubectl rollout undo deploy 이름 –to-revision=숫자 (특정 revision 으로 롤백)</li>
+</ul>
+</li>
+<li><p>Pod 개수 조정</p>
+<ul>
+<li>kubectl scale deploy 이름 –replicas=숫자</li>
+</ul>
+</li>
+<li><p>배포 정지, 재개, 재시작</p>
+<ul>
+<li>kubectl rollout pause deployment/이름</li>
+<li>kubectl rollout resume deployment/이름</li>
+</ul>
+</li>
+</ul>
+<h2 id="Daemonset-데몬셋"><a href="#Daemonset-데몬셋" class="headerlink" title="Daemonset (데몬셋)"></a>Daemonset (데몬셋)</h2><ul>
+<li>클러스터 전체 노드에 특정 파드를 실행할 때 사용하는 컨트롤러</li>
+<li>클러스터 전체에 항상 실행시켜두어야 하는 파드에 사용</li>
+<li>설정<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: apps&#x2F;v1</span><br><span class="line">kind: DaemonSet</span><br><span class="line">metadata:</span><br><span class="line">  name: fluentd-elasticsearch</span><br><span class="line">  namespace: kube-system</span><br><span class="line">  labels:</span><br><span class="line">    k8s-app: fluentd-logging</span><br><span class="line">spec:</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      name: fluentd-elasticsearch</span><br><span class="line">  updateStrategy:</span><br><span class="line">    type: RollingUpdate</span><br><span class="line">  template:</span><br><span class="line">    metadata: </span><br><span class="line">      labels:</span><br><span class="line">        name: fluentd-elasticsearch</span><br><span class="line">    spec:</span><br><span class="line">      containers:</span><br><span class="line">      - name: fluentd-elasticsearch</span><br><span class="line">        image: fluent&#x2F;fluentd-kubernetes-daemonset:elasticsearch</span><br><span class="line">        env:</span><br><span class="line">        - name: testenv</span><br><span class="line">          value: value</span><br><span class="line">        resources:</span><br><span class="line">          limits:</span><br><span class="line">            memory: 200Mi</span><br><span class="line">          requests:</span><br><span class="line">            cpu: 100m</span><br><span class="line">            memory: 200Mi</span><br></pre></td></tr></table></figure>
+<ul>
+<li>.spec.updateStrategy.type : 다음 두가지중 선택<ul>
+<li>OnDelete : 파드가 삭제되었을때 반영된다.</li>
+<li>RollingUpdate : 기본값 (1.5 이하에서는 OnDelete 가 기본값)<ul>
+<li>템플릿 변경시 바로 반영</li>
+<li>모든 파드가 한꺼번에 반영되는건 아니고 .spec.updateStrategy.rollingUpdate.maxUnavailable 필드와 .spec.minReadySeconds 필드를 추가로 설정해 한번에 교체하는 파드를 조정한다. </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="StatefulSets-스테이트풀-셋"><a href="#StatefulSets-스테이트풀-셋" class="headerlink" title="StatefulSets (스테이트풀 셋)"></a>StatefulSets (스테이트풀 셋)</h2><ul>
+<li>상태가 있는 파드들을 관리하는 컨트롤러</li>
+<li>생성될때 Pod 에 UUID 가 붙는게 아니라 숫자(0,1,2..)가 붙는다.</li>
+<li>삭제될때에는 숫자가 큰것부터 삭제가 된다. (업데이트시에는 Pod를 삭제하고 다시 생성하기 때문에 마찬가지로 숫자가 큰것부터 수정된다.)</li>
+</ul>
+<h2 id="Job-잡"><a href="#Job-잡" class="headerlink" title="Job (잡)"></a>Job (잡)</h2><ul>
+<li>실행된후 종료해야 하는 성격의 작업을 실행할때 사용하는 컨트롤러</li>
+<li>설정<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: batch&#x2F;v1</span><br><span class="line">kind: Job</span><br><span class="line">metadata:</span><br><span class="line">  name: pi</span><br><span class="line">spec:</span><br><span class="line">  template:</span><br><span class="line">    spec:</span><br><span class="line">      containers:</span><br><span class="line">      - name: pi</span><br><span class="line">        image: perl</span><br><span class="line">        command: []</span><br><span class="line">      restartPolicy: Naver</span><br><span class="line">  backoffLimit: 4</span><br></pre></td></tr></table></figure>
+<ul>
+<li>.spec.completions : 정상적으로 실행 종료 되어야 하는 파드 개수</li>
+<li>.spec.parallelism : 동시에 실행 가능한 파드 개수</li>
+<li>.spec.restartPolicy : 재시작 정책을 설정한다. </li>
+</ul>
+</li>
+</ul>
+<h2 id="크론잡"><a href="#크론잡" class="headerlink" title="크론잡"></a>크론잡</h2><ul>
+<li>job 을 시간 기준으로 관리한다. 주기적으로 반복이 가능하다.</li>
+<li>설정<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: batch&#x2F;v1beta1</span><br><span class="line">kind: CronJob</span><br><span class="line">metadata:</span><br><span class="line">  name: hello</span><br><span class="line">spec:</span><br><span class="line">  schedule: &quot;*&#x2F;1 * * * *&quot;</span><br><span class="line">  jobTemplate:</span><br><span class="line">    spec:</span><br><span class="line">      template:</span><br><span class="line">        spec:</span><br><span class="line">            containers:</span><br><span class="line">            - name: hello</span><br><span class="line">              image: busybox</span><br><span class="line">              args:</span><br><span class="line">              - &#x2F;bin&#x2F;sh</span><br><span class="line">              - -c</span><br><span class="line">              - date; echo Hello form the k8s</span><br><span class="line">            restartPolicy: OnFailure</span><br></pre></td></tr></table></figure>
+<ul>
+<li>.spec.schedule : cron 명령 설정과 동일 (위는 1분)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<blockquote>
+<p>출처 : 쿠버네티스 입문 - 90가지 예제로 배우는 컨테이너 관리자 자동화 표준 (동양북스)</p>
+</blockquote>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item">Posted&nbsp;<time dateTime="2020-12-22T23:49:57.000Z" title="2020-12-22T23:49:57.000Z">2020-12-23</time></span><span class="level-item">Updated&nbsp;<time dateTime="2020-12-30T13:13:19.747Z" title="2020-12-30T13:13:19.747Z">2020-12-30</time></span><span class="level-item"><a class="link-muted" href="/categories/Kubernetes/">Kubernetes</a><span> / </span><a class="link-muted" href="/categories/Kubernetes/Book/">Book</a></span><span class="level-item">5 minutes read (About 705 words)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/12/23/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4%EC%9E%85%EB%AC%B8-5%EC%9E%A5-%ED%8C%8C%EB%93%9C/">쿠버네티스입문 5장 파드</a></h1><div class="content"><h1 id="Pod"><a href="#Pod" class="headerlink" title="Pod"></a>Pod</h1><h2 id="개념"><a href="#개념" class="headerlink" title="개념"></a>개념</h2><p>쿠버네티스에서 실제로 컨테이너를 묶어서 관리하는 단위</p>
+<h2 id="설정"><a href="#설정" class="headerlink" title="설정"></a>설정</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: v1</span><br><span class="line">kind: Pod</span><br><span class="line">metadata:  </span><br><span class="line">  name: simple-pod          (Pod 이름)</span><br><span class="line">  labels: </span><br><span class="line">    app: simple-pod         (오브젝트를 식별하는 레이블)</span><br><span class="line">spec:</span><br><span class="line">  containers:</span><br><span class="line">  - name: simple-pod        (컨테이너 이름)</span><br><span class="line">    image: ~~~              (컨네이너에서 사용할 이미지)</span><br><span class="line">    ports:</span><br><span class="line">    - containerPort: 8080</span><br></pre></td></tr></table></figure>
+
+<h2 id="Pod-생명주기"><a href="#Pod-생명주기" class="headerlink" title="Pod 생명주기"></a>Pod 생명주기</h2><p>Pending -&gt; Running </p>
+<p>Successed</p>
+<p>Failed</p>
+<p>Unknown</p>
+<h2 id="컨테이너-진단"><a href="#컨테이너-진단" class="headerlink" title="컨테이너 진단"></a>컨테이너 진단</h2><ul>
+<li><p>ivenessProbe</p>
+<p>  컨테이너가 실행됐는지 확인</p>
+<p>  실패시 컨테이너를 종료시키고 재시작 정책에 따라서 재시작</p>
+</li>
+<li><p>readinessProbe</p>
+<p>  컨테이너 실행된 후 실제로 서비스 요청에 응답할 수 있는지 진단</p>
+<p>  컨테이너가 실제로 트래픽을 받을 준비가 되었음을 확인할 수 있어 유용함</p>
+</li>
+</ul>
+<h2 id="초기화-컨테이너-Init-Container"><a href="#초기화-컨테이너-Init-Container" class="headerlink" title="초기화 컨테이너(Init Container)"></a>초기화 컨테이너(Init Container)</h2><ul>
+<li><p>앱 컨테이너가 실행 되기 전 Pod 를 초기화 한다.</p>
+</li>
+<li><p>여러개 구성 가능하며 실행 순서는 템플릿에 명시한 순서를 따른다.</p>
+</li>
+<li><p>실패시 성공할때 까지 재시작한다.</p>
+</li>
+<li><p>readinessProbe 를 지원하지 않는다 - Pod 가 준비되기 전에 실행후 종료되기 때문</p>
+</li>
+<li><p>설정</p>
+<p>.spec.initContainers[] 의 하위 필드</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: v1</span><br><span class="line">kind: Pod</span><br><span class="line">metadata:  </span><br><span class="line">    name: simple-pod</span><br><span class="line">    labels: </span><br><span class="line">        app: simple-pod</span><br><span class="line">spec:</span><br><span class="line">    initContainers:</span><br><span class="line">    - name: </span><br><span class="line">      image:</span><br><span class="line">      command        </span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<h2 id="파드-인프라-컨테이너"><a href="#파드-인프라-컨테이너" class="headerlink" title="파드 인프라 컨테이너"></a>파드 인프라 컨테이너</h2><p>pause 컨테이너</p>
+<ul>
+<li>Pod Infrastructure Container (파드 인프라 컨테이너)</li>
+<li>모든 Pod 에서 항상 실행된다</li>
+<li>다른 컨테이너의 부모 역할을 한다</li>
+<li>Pod 안 다른 컨테이너들은 pause 컨테이너가 제공하는 네트워크를 사용</li>
+<li>pause 컨테이너 재시작시 Pod 안 모든 컨테이너 재시작됨<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">c34dff11289b        arisu1000&#x2F;simple-container-app   &quot;.&#x2F;simple-container-…&quot;   41 minutes ago      Up 41 minutes                           k8s_simple-pod_simple-pod_default_112e5cb1-101b-4cb6-a591-c83c6171cce5_0</span><br><span class="line">67c790777792        k8s.gcr.io&#x2F;pause:3.2             &quot;&#x2F;pause&quot;                 41 minutes ago      Up 41 minutes                           k8s_POD_simple-pod_default_112e5cb1-101b-4cb6-a591-c83c6171cce5_0</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="스태틱-Pod"><a href="#스태틱-Pod" class="headerlink" title="스태틱 Pod"></a>스태틱 Pod</h2><ul>
+<li>kube-apiserver 를 통하지 않고 kubelet 이 직접 실행하는 Pod</li>
+<li>조회는 가능하지만 명령 실행은 불가능(직접 edit 등 불가능)</li>
+<li>시스템 파드 실행용도로 많이 사용</li>
+<li>스태틱 Pod 경로 : /etc/kubernetes/manifests</li>
+</ul>
+<h2 id="자원-할당"><a href="#자원-할당" class="headerlink" title="자원 할당"></a>자원 할당</h2><ul>
+<li><p>requests 최소자원, limits 최대자원</p>
+<p>  .spec.containers[].resources.limits.cpu</p>
+<p>  .spec.containers[].resources.limits.memory</p>
+<p>  .spec.containers[].resources.requests.cpu</p>
+<p>  .spec.containers[].resources.requests.memory</p>
+</li>
+<li><p>requests 만 설정했을 경우 해당 값보다 더 많이 사용할 수 있기 때문에 limits 설정을 해야 Out of Memory 를 피할수 있다.</p>
+</li>
+<li><p>Memory : Exa, Peta, Tera, Giga, Mega, Kilo (맨 첫글자 사용)</p>
+</li>
+<li><p>CPU : 소수점일 경우 1개 코어에 해당하는 연산능력을 의미( 0.1 일경우 1코어의 10%만 활용)</p>
+</li>
+</ul>
+<h2 id="Pod-의-환경-변수"><a href="#Pod-의-환경-변수" class="headerlink" title="Pod 의 환경 변수"></a>Pod 의 환경 변수</h2><p>.spec.conainers[].env[] 하위 필드</p>
+<ul>
+<li>name</li>
+<li>value</li>
+<li>valueFrom</li>
+<li>fieldRef</li>
+<li>fieldPath</li>
+<li>resourceFieldRef</li>
+<li>containerName</li>
+<li>resource</li>
+</ul>
+<hr>
+<blockquote>
+<p>출처 : 쿠버네티스 입문 - 90가지 예제로 배우는 컨테이너 관리자 자동화 표준 (동양북스)</p>
+</blockquote>
+</div></article></div></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="/img/avatar.png" alt="Polpid"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Polpid</p><p class="is-size-6 is-block">Polpid</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>Seoul,Korea</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">Posts</p><a href="/archives"><p class="title">18</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Categories</p><a href="/categories"><p class="title">2</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Tags</p><a href="/tags"><p class="title">35</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/ppoffice" target="_blank" rel="noopener">Follow</a></div><div class="level is-mobile"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/blusky10"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="https://facebook.com/blusky10"><i class="fab fa-facebook"></i></a></div></div></div><!--!--><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">Links</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">Categories</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/Kubernetes/"><span class="level-start"><span class="level-item">Kubernetes</span></span><span class="level-end"><span class="level-item tag">17</span></span></a><ul><li><a class="level is-mobile" href="/categories/Kubernetes/Book/"><span class="level-start"><span class="level-item">Book</span></span><span class="level-end"><span class="level-item tag">9</span></span></a></li></ul></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">Recents</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-01-04T04:50:16.000Z">2021-01-04</time></p><p class="title"><a href="/2021/01/04/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4%EC%9E%85%EB%AC%B8-13%EC%9E%A5-%EC%9D%B8%EC%A6%9D%EA%B3%BC-%EA%B6%8C%ED%95%9C/">쿠버네티스입문 13장 인증과 권한</a></p><p class="categories"><a href="/categories/Kubernetes/">Kubernetes</a> / <a href="/categories/Kubernetes/Book/">Book</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2020-12-31T00:36:56.000Z">2020-12-31</time></p><p class="title"><a href="/2020/12/31/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4%EC%9E%85%EB%AC%B8-12%EC%9E%A5-%ED%8C%8C%EB%93%9C%EC%8A%A4%EC%BC%80%EC%A4%84%EB%A7%81/">쿠버네티스입문 12장 파드스케줄링</a></p><p class="categories"><a href="/categories/Kubernetes/">Kubernetes</a> / <a href="/categories/Kubernetes/Book/">Book</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2020-12-30T06:50:27.000Z">2020-12-30</time></p><p class="title"><a href="/2020/12/30/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4%EC%9E%85%EB%AC%B8-11%EC%9E%A5-%EC%8B%9C%ED%81%AC%EB%A6%BF/">쿠버네티스입문 11장 시크릿</a></p><p class="categories"><a href="/categories/Kubernetes/">Kubernetes</a> / <a href="/categories/Kubernetes/Book/">Book</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2020-12-30T04:35:46.000Z">2020-12-30</time></p><p class="title"><a href="/2020/12/30/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4%EC%9E%85%EB%AC%B8-10%EC%9E%A5-%EC%BB%A8%ED%94%BC%EA%B7%B8%EB%A7%B5/">쿠버네티스입문 10장 컨피그맵</a></p><p class="categories"><a href="/categories/Kubernetes/">Kubernetes</a> / <a href="/categories/Kubernetes/Book/">Book</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2020-12-29T23:36:53.000Z">2020-12-30</time></p><p class="title"><a href="/2020/12/30/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4%EC%9E%85%EB%AC%B8-9%EC%9E%A5-%EB%A0%88%EC%9D%B4%EB%B8%94%EA%B3%BC-%EC%95%A0%EB%84%88%ED%85%8C%EC%9D%B4%EC%85%98/">쿠버네티스입문 9장 레이블과 애너테이션</a></p><p class="categories"><a href="/categories/Kubernetes/">Kubernetes</a> / <a href="/categories/Kubernetes/Book/">Book</a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">Archives</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2021/01/"><span class="level-start"><span class="level-item">January 2021</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/12/"><span class="level-start"><span class="level-item">December 2020</span></span><span class="level-end"><span class="level-item tag">8</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/10/"><span class="level-start"><span class="level-item">October 2020</span></span><span class="level-end"><span class="level-item tag">9</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">Tags</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/90%EA%B0%80%EC%A7%80-%EC%98%88%EC%A0%9C%EB%A1%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-%EA%B4%80%EB%A6%AC-%EC%9E%90%EB%8F%99%ED%99%94-%ED%91%9C%EC%A4%80/"><span class="tag">90가지 예제로 배우는 컨테이너 관리 자동화 표준</span><span class="tag">9</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Book/"><span class="tag">Book</span><span class="tag">9</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Bravo/"><span class="tag">Bravo</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Controller/"><span class="tag">Controller</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Ingress/"><span class="tag">Ingress</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/IronGallery/"><span class="tag">IronGallery</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/K8S/"><span class="tag">K8S</span><span class="tag">17</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Kubernetes/"><span class="tag">Kubernetes</span><span class="tag">15</span></a></div><div class="control"><a class="tags has-addons" href="/tags/PV/"><span class="tag">PV</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/PVC/"><span class="tag">PVC</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Pento/"><span class="tag">Pento</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/RS/"><span class="tag">RS</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/RedisIslands/"><span class="tag">RedisIslands</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/ReplicaSet/"><span class="tag">ReplicaSet</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Service/"><span class="tag">Service</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Tyro/"><span class="tag">Tyro</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/VotingApp/"><span class="tag">VotingApp</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/configMap/"><span class="tag">configMap</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/cordon/"><span class="tag">cordon</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/gameofpod/"><span class="tag">gameofpod</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/kodekolud/"><span class="tag">kodekolud</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/pod/"><span class="tag">pod</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/secret/"><span class="tag">secret</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/uncordon/"><span class="tag">uncordon</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%EB%8F%99%EC%96%91%EB%B6%81%EC%8A%A4/"><span class="tag">동양북스</span><span class="tag">9</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%EB%A0%88%EC%9D%B4%EB%B8%94/"><span class="tag">레이블</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%EC%84%9C%EB%B9%84%EC%8A%A4/"><span class="tag">서비스</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%EC%8B%9C%ED%81%AC%EB%A6%BF/"><span class="tag">시크릿</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%EC%95%A0%EB%84%88%ED%85%8C%EC%9D%B4%EC%85%98/"><span class="tag">애너테이션</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%EC%9D%B8%EA%B7%B8%EB%A0%88%EC%8A%A4/"><span class="tag">인그레스</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%EC%BB%A8%ED%8A%B8%EB%A1%A4%EB%9F%AC/"><span class="tag">컨트롤러</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%EC%BB%A8%ED%94%BC%EA%B7%B8%EB%A7%B5/"><span class="tag">컨피그맵</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4/"><span class="tag">쿠버네티스</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4-%EC%9E%85%EB%AC%B8/"><span class="tag">쿠버네티스 입문</span><span class="tag">9</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%ED%8C%8C%EB%93%9C%EC%8A%A4%EC%BC%80%EC%A4%84%EB%A7%81/"><span class="tag">파드스케줄링</span><span class="tag">2</span></a></div></div></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.svg" alt="Polpid&#039;s Blog" height="28"></a><p class="is-size-7"><span>&copy; 2021 KIM SANG HYUN</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a><br><span id="busuanzi_container_site_uv">Visited by <span id="busuanzi_value_site_uv">0</span> users</span></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" async></script><script>moment.locale("en");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="Back to top" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "This website uses cookies to improve your experience.",
+          dismiss: "Got it!",
+          allow: "Allow cookies",
+          deny: "Decline",
+          link: "Learn more",
+          policy: "Cookie Policy",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="Type something..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"Type something...","untitled":"(Untitled)","posts":"Posts","pages":"Pages","categories":"Categories","tags":"Tags"});
+        });</script></body></html>
