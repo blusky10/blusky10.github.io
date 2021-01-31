@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>쿠버네티스입문 14장 볼륨 - Polpid&#039;s Blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="Polpid"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Polpid"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta description="볼륨데이터를 보존 해야 하는 경우 사용한다. 볼륨 .spec.container.volumeMounts.mountPropagation  볼륨을 공유할지 여부를 설정한다. None : 호스트에서 볼륨에 해당하는 디렉터리 하위에 마운트한 다른 마운트들은 볼수 없다. HostToContainer : 호스트에서 해당 볼륨 하위에 마운트된 다른 디렉터리들도 볼수 있다"><meta property="og:type" content="blog"><meta property="og:title" content="쿠버네티스입문 14장 볼륨"><meta property="og:url" content="https://blusky10.github.io/2021/01/11/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4%EC%9E%85%EB%AC%B8-14%EC%9E%A5-%EB%B3%BC%EB%A5%A8/"><meta property="og:site_name" content="Polpid&#039;s Blog"><meta property="og:description" content="볼륨데이터를 보존 해야 하는 경우 사용한다. 볼륨 .spec.container.volumeMounts.mountPropagation  볼륨을 공유할지 여부를 설정한다. None : 호스트에서 볼륨에 해당하는 디렉터리 하위에 마운트한 다른 마운트들은 볼수 없다. HostToContainer : 호스트에서 해당 볼륨 하위에 마운트된 다른 디렉터리들도 볼수 있다"><meta property="og:locale" content="en_US"><meta property="og:image" content="https://blusky10.github.io/img/og_image.png"><meta property="article:published_time" content="2021-01-10T23:29:51.000Z"><meta property="article:modified_time" content="2021-01-19T13:59:05.215Z"><meta property="article:author" content="KIM SANG HYUN"><meta property="article:tag" content="K8S"><meta property="article:tag" content="Kubernetes"><meta property="article:tag" content="쿠버네티스 입문"><meta property="article:tag" content="Book"><meta property="article:tag" content="동양북스"><meta property="article:tag" content="90가지 예제로 배우는 컨테이너 관리 자동화 표준"><meta property="article:tag" content="볼륨"><meta property="article:tag" content="volume"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://blusky10.github.io/2021/01/11/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4%EC%9E%85%EB%AC%B8-14%EC%9E%A5-%EB%B3%BC%EB%A5%A8/"},"headline":"Polpid's Blog","image":["https://blusky10.github.io/img/og_image.png"],"datePublished":"2021-01-10T23:29:51.000Z","dateModified":"2021-01-19T13:59:05.215Z","author":{"@type":"Person","name":"KIM SANG HYUN"},"description":"볼륨데이터를 보존 해야 하는 경우 사용한다. 볼륨 .spec.container.volumeMounts.mountPropagation  볼륨을 공유할지 여부를 설정한다. None : 호스트에서 볼륨에 해당하는 디렉터리 하위에 마운트한 다른 마운트들은 볼수 없다. HostToContainer : 호스트에서 해당 볼륨 하위에 마운트된 다른 디렉터리들도 볼수 있다"}</script><link rel="canonical" href="https://blusky10.github.io/2021/01/11/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4%EC%9E%85%EB%AC%B8-14%EC%9E%A5-%EB%B3%BC%EB%A5%A8/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css"><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script><!--!--><!--!--><meta name="generator" content="Hexo 5.2.0"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="Polpid&#039;s Blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="Catalogue" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="Search" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item">Posted&nbsp;<time dateTime="2021-01-10T23:29:51.000Z" title="2021-01-10T23:29:51.000Z">2021-01-11</time></span><span class="level-item">Updated&nbsp;<time dateTime="2021-01-19T13:59:05.215Z" title="2021-01-19T13:59:05.215Z">2021-01-19</time></span><span class="level-item"><a class="link-muted" href="/categories/Kubernetes/">Kubernetes</a><span> / </span><a class="link-muted" href="/categories/Kubernetes/Book/">Book</a></span><span class="level-item">7 minutes read (About 1109 words)</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>&nbsp;visits</span></div></div><h1 class="title is-3 is-size-4-mobile">쿠버네티스입문 14장 볼륨</h1><div class="content"><h1 id="볼륨"><a href="#볼륨" class="headerlink" title="볼륨"></a>볼륨</h1><p>데이터를 보존 해야 하는 경우 사용한다.</p>
+<h2 id="볼륨-1"><a href="#볼륨-1" class="headerlink" title="볼륨"></a>볼륨</h2><ul>
+<li><p>.spec.container.volumeMounts.mountPropagation</p>
+<ul>
+<li>볼륨을 공유할지 여부를 설정한다.</li>
+<li>None : 호스트에서 볼륨에 해당하는 디렉터리 하위에 마운트한 다른 마운트들은 볼수 없다.</li>
+<li>HostToContainer : 호스트에서 해당 볼륨 하위에 마운트된 다른 디렉터리들도 볼수 있다.</li>
+<li>Bidirectional : 하위 마운트된 디렉토리를 볼수 있고 다른 모든 컨테이너나 파드에서 같은 볼륨을 사용할 수 있다.</li>
+</ul>
+</li>
+<li><p>emptyDir</p>
+<ul>
+<li>호스트의 디스크를 임시로 컨테이너에 볼륨으로 할당</li>
+<li>파드가 사라지면 emptyDir 에 할당해서 사용했던 볼륨의 데이터도 사라진다</li>
+<li>설정<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">spec:</span><br><span class="line">  containers:</span><br><span class="line">  - name: kubernetes-simple-pod</span><br><span class="line">    image: arisu1000&#x2F;simple-container-app:latest</span><br><span class="line">    volumMounts:</span><br><span class="line">    - mountPath: &#x2F;emptydir</span><br><span class="line">      name: emptydir-vol</span><br><span class="line">  volumes:</span><br><span class="line">  - name: emptydir-vol</span><br><span class="line">    emptyDir: &#123;&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>대부분 볼륨 설정과 마운트하는 부분이 분리되어있음.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>hostPath</p>
+<ul>
+<li><p>파드가 실행된 호스트의 파일이나 디렉토리 마운트</p>
+</li>
+<li><p>emptyDir VS hostPath</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>emptyDir</th>
+<th>hostPath</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td>임시디렉토리 마운트</td>
+<td>실제디렉토리 마운트</td>
+</tr>
+<tr>
+<td></td>
+<td>컨테이너 재시작했을때 데이터 보존</td>
+<td>파드 재시작했을때 데이터 보존</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>설정</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">spec:</span><br><span class="line">  containers:</span><br><span class="line">  - name: kubernetes-simple-pod</span><br><span class="line">    image: arisu1000&#x2F;simple-container-app:latest</span><br><span class="line">    volumMounts:</span><br><span class="line">    - mountPath: &#x2F;test-volume</span><br><span class="line">      name: hostpath-vol</span><br><span class="line">  volumes:</span><br><span class="line">  - name: hostpath-vol</span><br><span class="line">    hostPath:</span><br><span class="line">      path: &#x2F;tmp</span><br><span class="line">      type: Directory</span><br></pre></td></tr></table></figure>
+<ul>
+<li>type <ul>
+<li>DirectoryOrCreate : 디렉토리 없으면 퍼미션 755 로 디렉토리 생성</li>
+<li>Directory : 해당 위치에 디렉토리 존재해야한다.</li>
+<li>FileOrCreate : 파일 없으면 퍼미션 644로 파일 생성</li>
+<li>File : 설정 경로에 파일이 있어야함.</li>
+<li>Socket : 설정한 경로에 유닉스 소켓파일이 있어야함.</li>
+<li>CharDevice : 설정한 경로에 문자 디파이스 있는지 확인.</li>
+<li>BlockDevice : 설정한 경로에 블록 디바이스가 있는지 확인</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>nfs</p>
+<ul>
+<li>기존에 사용하는 nfs 서버를 이용해서 파드에 마운트하는 것.</li>
+<li>여러개의 파드에 볼륨 하나를 공유해 읽기/쓰기 동시에 할때도 사용한다.</li>
+</ul>
+</li>
+</ul>
+<h2 id="PersistentVolume-amp-PersistentVolumeClaim"><a href="#PersistentVolume-amp-PersistentVolumeClaim" class="headerlink" title="PersistentVolume &amp; PersistentVolumeClaim"></a>PersistentVolume &amp; PersistentVolumeClaim</h2><ul>
+<li>PV 는 볼륨 자체를 의미한다. 별도의 생명주기를 가지고 있다.</li>
+<li>PVC 는 사용자가 PV 에 하는 요청이다.</li>
+<li>PV 와 PVC 의 생명주기<ul>
+<li>프로비저닝(Provisioning)<ul>
+<li>PV 를 만드는 단계</li>
+<li>정적 : 미리 적정 용량의 PV 를 만들어둠</li>
+<li>동적 : 사용자가 PVC 를 거쳐 PV를 요청했을때 생성</li>
+</ul>
+</li>
+<li>바인딩(Binding)<ul>
+<li>PV 와 PVC 를 연결하는 단계</li>
+<li>PV 와 PVC 는 1:1 관계이다</li>
+</ul>
+</li>
+<li>사용(Using)<ul>
+<li>할당된 PVC 는 시스템에서 임의로 삭제할 수 없다.</li>
+</ul>
+</li>
+<li>반환(Reclaiming)<ul>
+<li>PVC 가 삭제되고 사용중인 PV를 초기화한다.</li>
+<li>반환정책<ul>
+<li>Retain <ul>
+<li>PV 를 그대로 보존한다. PV를 삭제 하더라도 외부 연결된 스토리지는 그대로 남는다.</li>
+<li>재사용을 위해서는 PV를 삭제하고 스토리지에 남은 데이터를 직접 처리해줘야 한다.</li>
+</ul>
+</li>
+<li>Delete<ul>
+<li>PV 를 삭제하고 외부 스토리지의 볼륨도 삭제한다.</li>
+</ul>
+</li>
+<li>Recycle<ul>
+<li>PV의 데이터를 삭제하고 새로운 PVC 에서 PV 를 사용할 수 있도록 한다.</li>
+<li>중단 예정 정책</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>PV 템플릿<ul>
+<li>설정 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: v1</span><br><span class="line">kind: PersistentVolume</span><br><span class="line">metadata:</span><br><span class="line">  name: pv-hostpath</span><br><span class="line">spec:</span><br><span class="line">  capacity:</span><br><span class="line">    storage: 2Gi</span><br><span class="line">  volumeMode: Filesystem</span><br><span class="line">  accessModes:</span><br><span class="line">  - ReadWriteOnce</span><br><span class="line">  storageClassName: manual</span><br><span class="line">  persistentVolumeReclaimPolicy: Delete</span><br><span class="line">  hostPath:</span><br><span class="line">    path: &#x2F;tmp&#x2F;k8s-pv</span><br></pre></td></tr></table></figure>
+<ul>
+<li>.spec.volumeMode: 볼륨의 설정 상태. 기본은 Filesystem</li>
+<li>.spec.accessModes: 읽기/쓰기 옵션<ul>
+<li>ReadWriteOnce: 노드 하나에만 읽기/쓰기로 마운트</li>
+<li>ReadOnlyMany: 여러개 노드에 읽기 전용으로 마운트</li>
+<li>ReadWriteMany: 여러개 노드에 읽기/쓰기로 마운트</li>
+<li>플러그인 별로 다름</li>
+</ul>
+</li>
+<li>.spec.stroageClassName: 스토리지 클래스 설정. 특정 스토리지 클래스가 있는 PV 는 해당 클래스에 맞는 PVC 와 연결 가능하다.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>PVC 템플릿<ul>
+<li>설정<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: v1</span><br><span class="line">kind: PersistentVolumeClaim</span><br><span class="line">metadata:</span><br><span class="line">  name: pvc-hostpath</span><br><span class="line">spec:</span><br><span class="line">  volumeMode: Filesystem</span><br><span class="line">  accessModes:</span><br><span class="line">  - ReadWriteOnce</span><br><span class="line">  storageClassName: manual</span><br><span class="line">  resources:</span><br><span class="line">    requests:</span><br><span class="line">      storage: 1Gi          </span><br></pre></td></tr></table></figure>
+<ul>
+<li>.spec.resources.requests.storage: 필드 자원을 얼마나 사용할 것인지 요청. pv의 용량을 초과하면 안된다.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>pv, pvc 연결<ul>
+<li>label 로 연결<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">pv</span><br><span class="line">---</span><br><span class="line">metadata:</span><br><span class="line">  name: pv-hostpath-label</span><br><span class="line">  labels:</span><br><span class="line">    location: local</span><br><span class="line">---</span><br><span class="line">pvc</span><br><span class="line">---</span><br><span class="line">spec:</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      location: local</span><br></pre></td></tr></table></figure></li>
+<li>파드에서 사용<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">spec:</span><br><span class="line">  containers:</span><br><span class="line">  - name: simple-app</span><br><span class="line">    volumeMounts:</span><br><span class="line">    - mountPath: &quot;&#x2F;tmp&quot;</span><br><span class="line">      name: myvolume</span><br><span class="line">  volumes:</span><br><span class="line">  - name: myvolume</span><br><span class="line">    persistentVolumeClaim:</span><br><span class="line">      claimName: pvc-hostpath</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>pvc 크기 변경<ul>
+<li>.spec.storageClassName.allowVolumeExpansion : true 로 설정</li>
+<li>특정 볼륨 플러그인에 한해서만 가능</li>
+<li>파일시스템을 사용하는 파드라면 새로운 파드를 실행할때에만 진행된다</li>
+</ul>
+</li>
+</ul>
+</div><div class="article-licensing box"><div class="licensing-title"><p>쿠버네티스입문 14장 볼륨</p><p><a href="https://blusky10.github.io/2021/01/11/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4%EC%9E%85%EB%AC%B8-14%EC%9E%A5-%EB%B3%BC%EB%A5%A8/">https://blusky10.github.io/2021/01/11/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4%EC%9E%85%EB%AC%B8-14%EC%9E%A5-%EB%B3%BC%EB%A5%A8/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>Author</h6><p>KIM SANG HYUN</p></div></div><div class="level-item is-narrow"><div><h6>Posted on</h6><p>2021-01-11</p></div></div><div class="level-item is-narrow"><div><h6>Updated on</h6><p>2021-01-19</p></div></div><div class="level-item is-narrow"><div><h6>Licensed under</h6><p><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a class="icon" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a><a class="icon" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/K8S/">K8S</a><a class="link-muted mr-2" rel="tag" href="/tags/Kubernetes/">Kubernetes</a><a class="link-muted mr-2" rel="tag" href="/tags/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4-%EC%9E%85%EB%AC%B8/">쿠버네티스 입문</a><a class="link-muted mr-2" rel="tag" href="/tags/Book/">Book</a><a class="link-muted mr-2" rel="tag" href="/tags/%EB%8F%99%EC%96%91%EB%B6%81%EC%8A%A4/">동양북스</a><a class="link-muted mr-2" rel="tag" href="/tags/90%EA%B0%80%EC%A7%80-%EC%98%88%EC%A0%9C%EB%A1%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-%EA%B4%80%EB%A6%AC-%EC%9E%90%EB%8F%99%ED%99%94-%ED%91%9C%EC%A4%80/">90가지 예제로 배우는 컨테이너 관리 자동화 표준</a><a class="link-muted mr-2" rel="tag" href="/tags/%EB%B3%BC%EB%A5%A8/">볼륨</a><a class="link-muted mr-2" rel="tag" href="/tags/volume/">volume</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2021/01/14/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4%EC%9E%85%EB%AC%B8-15%EC%9E%A5-%ED%81%B4%EB%9F%AC%EC%8A%A4%ED%84%B0-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%82%B9-%EA%B5%AC%EC%84%B1/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">쿠버네티스입문 15장 클러스터 네트워킹 구성</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2021/01/04/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4%EC%9E%85%EB%AC%B8-13%EC%9E%A5-%EC%9D%B8%EC%A6%9D%EA%B3%BC-%EA%B6%8C%ED%95%9C/"><span class="level-item">쿠버네티스입문 13장 인증과 권한</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><!--!--><div class="column column-right is-4-tablet is-4-desktop is-4-widescreen  order-3 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">Catalogue</h3><ul class="menu-list"><li><a class="level is-mobile" href="#볼륨"><span class="level-left"><span class="level-item">1</span><span class="level-item">볼륨</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#볼륨-1"><span class="level-left"><span class="level-item">1.1</span><span class="level-item">볼륨</span></span></a></li><li><a class="level is-mobile" href="#PersistentVolume-amp-PersistentVolumeClaim"><span class="level-left"><span class="level-item">1.2</span><span class="level-item">PersistentVolume &amp; PersistentVolumeClaim</span></span></a></li></ul></li></ul></div></div><style>.menu-list > li > a.is-active + .menu-list { display: block; }.menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.svg" alt="Polpid&#039;s Blog" height="28"></a><p class="is-size-7"><span>&copy; 2021 KIM SANG HYUN</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a><br><span id="busuanzi_container_site_uv">Visited by <span id="busuanzi_value_site_uv">0</span> users</span></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" async></script><script>moment.locale("en");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="Back to top" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "This website uses cookies to improve your experience.",
+          dismiss: "Got it!",
+          allow: "Allow cookies",
+          deny: "Decline",
+          link: "Learn more",
+          policy: "Cookie Policy",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="Type something..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"Type something...","untitled":"(Untitled)","posts":"Posts","pages":"Pages","categories":"Categories","tags":"Tags"});
+        });</script></body></html>
